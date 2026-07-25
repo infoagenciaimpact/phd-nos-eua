@@ -81,18 +81,7 @@
       display: block;
     }
 
-    /* ── BANNER BÔNUS ── */
-    .banner-bonus {
-      width: 100%;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 12px;
-    }
-    .banner-bonus img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+
 
     /* ── BARRA TOPO HOTMART ── */
     .topo-hotmart {
@@ -227,17 +216,9 @@
     .declaracao-text strong { color: #d1d5db; }
     .copyright { margin-top: 12px; font-size: 10px; color: #6b7280; border-top: 1px solid #2d2d2d; padding-top: 10px; }
 
-    .trust-section { width: 100%; padding: 8px 16px 28px; display: flex; flex-direction: column; gap: 10px; }
-
     /* ── INFOGRÁFICO / SOBRE A PLATAFORMA ── */
     .infografico-section { width: 100%; padding: 0 0 16px; }
     .infografico-section img { width: 100%; height: auto; display: block; border-radius: 10px; }
-    .trust-item {
-      background: #fff; border-radius: 10px; border: 1.5px solid #d1d5db;
-      padding: 13px 16px; display: flex; align-items: center; gap: 14px;
-    }
-    .trust-item-texts strong { display: block; font-size: 13px; font-weight: 700; color: #111; }
-    .trust-item-texts span { font-size: 11px; color: #000000; font-style: italic; }
 
     .whatsapp-float {
       position: fixed; bottom: 22px; right: 22px; width: 58px; height: 58px;
@@ -268,11 +249,6 @@
       <video controls playsinline preload="metadata" poster="produto-phdnoseua.png">
         <source src="video-topo.mp4" type="video/mp4">
       </video>
-    </div>
-
-    <!-- BANNER BÔNUS -->
-    <div class="banner-bonus">
-      <img src="banner-bonus.jpg" alt="Bônus exclusivos Mentoria Método PHDNOSEUA" />
     </div>
 
 
@@ -344,11 +320,33 @@
         </div>
       </div>
 
+      <div class="orderbump-wrap">
+        <div class="orderbump-title">Aproveite e compre junto:</div>
+        <div class="orderbump-card">
+          <div class="orderbump-body">
+            <img src="radar-de-bolsas.png" alt="Radar de Bolsas - Anual" class="orderbump-img" />
+            <div class="orderbump-info">
+              <div class="orderbump-name">Radar de Bolsas - Anual</div>
+              <div class="orderbump-desc">Toda semana selecionamos uma universidade nos Estados Unidos para te passar informações completas sobre bolsas de estudos. Para cada programa, seja de mestrado e/ou doutorado, que aquela universidade oferece, você terá informações sobre valores de bolsa, modalidade (TA/RA), forma de ser considerado, prazo de inscrição e muito mais.</div>
+              <div class="orderbump-price-new">R$&nbsp;97,00</div>
+            </div>
+          </div>
+          <label class="orderbump-checkbox-row">
+            <input type="checkbox" id="orderBumpCheckbox" onchange="toggleOrderBump()" />
+            <span>Adicionar produto</span>
+          </label>
+        </div>
+      </div>
+
       <div class="detalhes-wrap">
         <div class="detalhes-title">Detalhes da compra</div>
         <div class="detalhes-item">
           <div class="detalhes-nome">Mentoria Método PHDNOSEUA – Acesso completo</div>
           <div class="detalhes-preco">R$&nbsp;497,00</div>
+        </div>
+        <div class="detalhes-item" id="bumpDetalheItem" style="display:none;">
+          <div class="detalhes-nome">Radar de Bolsas - Anual</div>
+          <div class="detalhes-preco">R$&nbsp;97,00</div>
         </div>
         <div class="detalhes-total">
           <strong>Total</strong>
@@ -386,51 +384,6 @@
       </div>
     </div>
 
-    <div class="trust-section">
-      <div class="trust-item">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 3.5c-1.4 0-2.6.9-3 2.2-1.4-.1-2.6.9-2.9 2.3-.3 1.3.4 2.6 1.6 3.1-.5 1.3.1 2.7 1.4 3.2 1.2.5 2.6-.1 3.1-1.3"/>
-          <path d="M15 3.5c1.4 0 2.6.9 3 2.2 1.4-.1 2.6.9 2.9 2.3.3 1.3-.4 2.6-1.6 3.1.5 1.3-.1 2.7-1.4 3.2-1.2.5-2.6-.1-3.1-1.3"/>
-          <circle cx="12" cy="9.5" r="3.3"/>
-          <path d="m9.6 12-1.9 7.5 4.3-1.7 4.3 1.7L14.4 12"/>
-        </svg>
-        <div class="trust-item-texts">
-          <strong>Privacidade</strong>
-          <span>Sua informação 100% segura</span>
-        </div>
-      </div>
-      <div class="trust-item">
-        <svg width="32" height="32" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M26 2L5 11v14c0 13.25 9.02 25.63 21 29 11.98-3.37 21-15.75 21-29V11L26 2z" stroke="#000000" stroke-width="3" fill="none"/>
-          <polyline points="16,26 22,32 36,18" stroke="#000000" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="trust-item-texts">
-          <strong>Compra segura</strong>
-          <span>Ambiente seguro e autenticado</span>
-        </div>
-      </div>
-      <div class="trust-item">
-        <svg width="36" height="36" viewBox="0 0 52 36" xmlns="http://www.w3.org/2000/svg">
-          <path d="M37.99 1.092a1.417 1.417 0 00-.629-.88 1.4 1.4 0 00-1.074-.182l-5.928 1.4L26 2.822l-4.359-1.392-5.928-1.4a1.4 1.4 0 00-1.074.182 1.417 1.417 0 00-.629.88L12.59 7H6.5A6.507 6.507 0 000 13.5v16A6.507 6.507 0 006.5 36h39a6.507 6.507 0 006.5-6.5v-16A6.507 6.507 0 0045.5 7h-6.09l-1.42-5.908z" fill="#000000"/>
-          <path d="M26 22L4 10M26 22l22-12" stroke="#fff" stroke-width="2" fill="none"/>
-        </svg>
-        <div class="trust-item-texts">
-          <strong>Entregue via E-mail</strong>
-          <span>Acesso ao produto entregue por email</span>
-        </div>
-      </div>
-      <div class="trust-item">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="1,12 6,17 13,7"/>
-          <polyline points="10,12 15,17 23,7"/>
-        </svg>
-        <div class="trust-item-texts">
-          <strong>Conteúdo aprovado</strong>
-          <span>100% revisado e aprovado</span>
-        </div>
-      </div>
-    </div>
-
     <div class="infografico-section">
       <img src="banner-bonus.jpg" alt="Bônus exclusivos Mentoria Método PHDNOSEUA" />
     </div>
@@ -456,9 +409,29 @@
   const PRODUTO_VALOR   = 497.00;
   const PRODUTO_NOME    = 'Mentoria Método PHDNOSEUA';
   const WHATSAPP_NUM    = '5511920096589'; // TODO: confirmar numero de WhatsApp da PHDNOSEUA LLC
+  const BUMP_VALOR      = 97.00;
+  const BUMP_NOME       = 'Radar de Bolsas - Anual';
+
+  function bumpAtivo() {
+    const cb = document.getElementById('orderBumpCheckbox');
+    return !!(cb && cb.checked);
+  }
 
   function getValorTotal() {
-    return PRODUTO_VALOR;
+    return PRODUTO_VALOR + (bumpAtivo() ? BUMP_VALOR : 0);
+  }
+
+  function atualizarTotal() {
+    document.getElementById('totalValor').textContent =
+      'R$ ' + getValorTotal().toFixed(2).replace('.', ',');
+  }
+
+  function toggleOrderBump() {
+    const item = document.getElementById('bumpDetalheItem');
+    if (item) {
+      item.style.display = bumpAtivo() ? 'flex' : 'none';
+    }
+    atualizarTotal();
   }
 
   document.getElementById('cpf').addEventListener('input', function(e) {
@@ -534,7 +507,7 @@
           cpf,
           celular: cel,
           valor: getValorTotal(),
-          produtoNome: PRODUTO_NOME,
+          produtoNome: PRODUTO_NOME + (bumpAtivo() ? ' + ' + BUMP_NOME : ''),
         }),
       });
 
@@ -558,7 +531,7 @@
   }
 
   function showPixQR(payload, email, nome, transactionId) {
-    const itensTexto = PRODUTO_NOME;
+    const itensTexto = PRODUTO_NOME + (bumpAtivo() ? ' + ' + BUMP_NOME : '');
 
     const linkWhats = 'https://wa.me/' + WHATSAPP_NUM + '?text=' + encodeURIComponent(
       'Ola! Acabei de pagar o Pix do ' + itensTexto + '.\nNome: ' + nome + '\nEmail: ' + email
