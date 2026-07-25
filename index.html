@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>Checkout – Mentoria Método PHDNOSEUA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    body {
+      font-family: 'Inter', 'Open Sans', sans-serif;
+      background-color: #FFFFFF;
+      min-height: 100vh;
+      color: #333;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 16px 0 0;
+    }
+
+    @media (min-width: 820px) {
+      .page-wrapper {
+        padding: 28px 16px;
+        min-height: 100vh;
+      }
+    }
+
+    .col-checkout {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+    }
+
+    @media (min-width: 820px) {
+      .col-checkout {
+        width: 480px;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+    }
+
+    /* ── BANNER SUPERIOR ── */
+    .banner-topo {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .banner-topo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ── VÍDEO SUPERIOR ── */
+    .video-topo {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      background: #000;
+    }
+    .video-topo video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ── BANNER BÔNUS ── */
+    .banner-bonus {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .banner-bonus img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ── BARRA TOPO HOTMART ── */
+    .topo-hotmart {
+      background: #f4f2ee;
+      border: 1px solid #e6e3dd;
+      border-radius: 10px 10px 0 0;
+      width: 100%;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+    }
+    .topo-hotmart img { height: 22px; width: auto; display: block; }
+
+    /* ── CARD BRANCO ── */
+    .card {
+      background: #fff;
+      width: 100%;
+      border-radius: 0 0 10px 10px;
+      padding: 16px 16px 0;
+    }
+
+    @media (min-width: 820px) {
+      .card {
+        border-radius: 0 0 10px 10px;
+      }
+    }
+
+    .country-bar { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+    .country-btn {
+      background: none; border: none; font-size: 12px; color: #555;
+      cursor: pointer; display: flex; align-items: center; gap: 4px;
+    }
+
+    .product-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
+    .product-img {
+      width: 64px; height: 64px; border-radius: 6px; object-fit: contain;
+      flex-shrink: 0; background: #fff; border: 1px solid #eee;
+    }
+    .product-name { font-size: 13.5px; font-weight: 700; color: #111; line-height: 1.35; margin-bottom: 2px; }
+    .product-author { font-size: 11px; color: #888; margin-bottom: 6px; }
+    .product-price-old { font-size: 12px; color: #999; text-decoration: line-through; }
+    .product-price { font-size: 19px; font-weight: 800; color: #000000; }
+    .product-price-sub { font-size: 11px; color: #000000; margin-top: 1px; }
+    .oferta-badge {
+      display: inline-block; background: #f0f0f0; color: #000000;
+      font-size: 10px; border-radius: 4px; padding: 2px 6px; margin-top: 5px;
+    }
+
+    hr.div { border: none; border-top: 1px solid #e5e7eb; margin: 14px 0; }
+
+    .section-title { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 12px; }
+    .form-col { display: flex; flex-direction: column; gap: 10px; }
+    .form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .fgroup { display: flex; flex-direction: column; gap: 4px; }
+    .fgroup label { font-size: 11.5px; font-weight: 600; color: #374151; }
+    .fgroup input {
+      padding: 11px 12px; border: 1.5px solid #d1d5db; border-radius: 6px;
+      font-size: 13.5px; color: #111; outline: none; -webkit-appearance: none;
+      width: 100%; transition: border-color .15s;
+    }
+    .fgroup input::placeholder { color: #9ca3af; font-size: 12.5px; }
+    .fgroup input:focus { border-color: #000000; }
+
+    .pix-box {
+      border: 1.5px solid #d1d5db; border-radius: 8px; padding: 14px;
+      display: flex; align-items: center; gap: 10px; background: #ffffff;
+    }
+    .pix-icon-bg {
+      width: 40px; height: 40px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      overflow: hidden;
+    }
+    .pix-icon-bg img { width: 100%; height: 100%; object-fit: contain; }
+
+    /* ── ORDER BUMP ── */
+    .orderbump-wrap { margin-top: 16px; }
+    .orderbump-title { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .orderbump-card {
+      border: 1.5px solid #22c55e; border-radius: 10px; padding: 14px;
+      background: #fff;
+    }
+    .orderbump-body { display: flex; gap: 12px; align-items: flex-start; }
+    .orderbump-img {
+      width: 64px; height: 64px; border-radius: 6px; object-fit: cover;
+      flex-shrink: 0; border: 1px solid #eee;
+    }
+    .orderbump-info { flex: 1; min-width: 0; }
+    .orderbump-name { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .orderbump-desc { font-size: 12px; color: #6b7280; line-height: 1.5; margin-bottom: 6px; }
+    .orderbump-price-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+    .orderbump-price-old { font-size: 12.5px; color: #9ca3af; text-decoration: line-through; }
+    .orderbump-badge {
+      background: #22c55e; color: #fff; font-size: 11px; font-weight: 700;
+      border-radius: 4px; padding: 2px 7px;
+    }
+    .orderbump-price-new { font-size: 17px; font-weight: 800; color: #111; margin-top: 2px; }
+    .orderbump-checkbox-row {
+      display: flex; align-items: center; gap: 8px; margin-top: 12px;
+      padding: 10px 12px; background: #ecfdf3; border-radius: 6px; cursor: pointer;
+    }
+    .orderbump-checkbox-row input { width: 18px; height: 18px; accent-color: #22c55e; cursor: pointer; }
+    .orderbump-checkbox-row span { font-size: 13.5px; color: #111; font-weight: 500; }
+
+    .detalhes-wrap { margin-top: 14px; }
+    .detalhes-title { font-size: 13px; font-weight: 700; color: #111; margin-bottom: 8px; }
+    .detalhes-item {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;
+      border: 1px solid #e5e7eb; border-radius: 6px; padding: 10px 12px;
+    }
+    .detalhes-item + .detalhes-item { margin-top: 6px; }
+    .detalhes-nome { font-size: 12.5px; font-weight: 700; color: #111; flex: 1; line-height: 1.4; }
+    .detalhes-preco { font-size: 12.5px; color: #111; white-space: nowrap; font-weight: 500; }
+    .detalhes-total {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 10px; padding-top: 10px; border-top: 1.5px solid #e5e7eb;
+    }
+    .detalhes-total strong { font-size: 14px; color: #111; }
+    .detalhes-total .total-valor { font-size: 17px; font-weight: 800; color: #000000; }
+
+    .btn-comprar {
+      display: block; width: 100%; padding: 14px 16px; background: #27ae60;
+      color: #fff; font-size: 15px; font-weight: 700; border: none; border-radius: 6px;
+      cursor: pointer; margin-top: 14px; text-align: center; letter-spacing: .15px;
+      font-family: inherit;
+    }
+    .btn-comprar:active { opacity: .88; }
+
+    .protected-row { display: flex; align-items: center; justify-content: center; gap: 5px; padding: 12px 0 14px; }
+
+    .declaracao-section { background: #1a1a1a; padding: 16px 16px 20px; width: 100%; }
+    .declaracao-text { font-size: 10.5px; color: #9ca3af; line-height: 1.65; }
+    .declaracao-text strong { color: #d1d5db; }
+    .copyright { margin-top: 12px; font-size: 10px; color: #6b7280; border-top: 1px solid #2d2d2d; padding-top: 10px; }
+
+    .trust-section { width: 100%; padding: 8px 16px 28px; display: flex; flex-direction: column; gap: 10px; }
+
+    /* ── INFOGRÁFICO / SOBRE A PLATAFORMA ── */
+    .infografico-section { width: 100%; padding: 0 0 16px; }
+    .infografico-section img { width: 100%; height: auto; display: block; border-radius: 10px; }
+    .trust-item {
+      background: #fff; border-radius: 10px; border: 1.5px solid #d1d5db;
+      padding: 13px 16px; display: flex; align-items: center; gap: 14px;
+    }
+    .trust-item-texts strong { display: block; font-size: 13px; font-weight: 700; color: #111; }
+    .trust-item-texts span { font-size: 11px; color: #000000; font-style: italic; }
+
+    .whatsapp-float {
+      position: fixed; bottom: 22px; right: 22px; width: 58px; height: 58px;
+      background: #25D366; border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.25); z-index: 9998;
+      text-decoration: none; animation: whatsapp-pulse 2.2s infinite; transition: transform .15s;
+    }
+    .whatsapp-float:active { transform: scale(0.94); }
+    .whatsapp-float svg { width: 32px; height: 32px; fill: #fff; }
+    @keyframes whatsapp-pulse {
+      0%   { box-shadow: 0 4px 16px rgba(0,0,0,0.25), 0 0 0 0 rgba(37,211,102,0.55); }
+      70%  { box-shadow: 0 4px 16px rgba(0,0,0,0.25), 0 0 0 14px rgba(37,211,102,0); }
+      100% { box-shadow: 0 4px 16px rgba(0,0,0,0.25), 0 0 0 0 rgba(37,211,102,0); }
+    }
+    @media (min-width: 480px) {
+      .whatsapp-float { bottom: 26px; right: 26px; }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+<div class="page-wrapper">
+  <div class="col-checkout">
+
+    <!-- VÍDEO SUPERIOR -->
+    <div class="video-topo">
+      <video controls playsinline preload="metadata" poster="produto-phdnoseua.png">
+        <source src="video-topo.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- BANNER BÔNUS -->
+    <div class="banner-bonus">
+      <img src="banner-bonus.jpg" alt="Bônus exclusivos Mentoria Método PHDNOSEUA" />
+    </div>
+
+
+    <!-- BARRA TOPO HOTMART -->
+    <div class="topo-hotmart">
+<img src="data:image/webp;base64,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" alt="hotmart" />
+    </div>
+
+    <!-- CARD BRANCO -->
+    <div class="card">
+
+      <div class="country-bar">
+        <button class="country-btn">
+          🇧🇷 BR
+          <svg width="14" height="14" viewBox="0 0 255 255" fill="#555"><path d="M0 63.75L127.5 191.25L255 63.75z"/></svg>
+          Alterar país
+        </button>
+      </div>
+
+      <div class="product-row">
+        <img class="product-img" src="produto-phdnoseua.png" alt="Mentoria Método PHDNOSEUA" />
+        <div>
+          <div class="product-name">Mentoria Método PHDNOSEUA</div>
+          <div class="product-author">Autor: PHDNOSEUA LLC</div>
+          <div class="product-price">R$&nbsp;497,00</div>
+          <div class="product-price-sub">Pagamento único via Pix</div>
+          <span class="oferta-badge">Mentoria Método PHDNOSEUA · Acesso Completo</span>
+        </div>
+      </div>
+
+      <hr class="div" />
+
+      <div class="section-title">Dados pessoais</div>
+      <div class="form-col">
+        <div class="fgroup">
+          <label for="email">Seu email</label>
+          <input type="email" id="email" placeholder="Digite seu email para receber a compra" />
+        </div>
+        <div class="fgroup">
+          <label for="email2">Confirme seu email</label>
+          <input type="email" id="email2" placeholder="Digite novamente seu email" />
+        </div>
+        <div class="fgroup">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" placeholder="Digite seu nome completo" />
+        </div>
+        <div class="form-row2">
+          <div class="fgroup">
+            <label for="cpf">CPF/CNPJ</label>
+            <input type="text" id="cpf" placeholder="000.000.000-00" />
+          </div>
+          <div class="fgroup">
+            <label for="cel">Celular</label>
+            <input type="tel" id="cel" placeholder="(11) 90000-0000" />
+          </div>
+        </div>
+      </div>
+
+      <hr class="div" style="margin-top:16px;" />
+
+      <div class="section-title">Forma de pagamento</div>
+      <div class="pix-box">
+        <div class="pix-icon-bg">
+          <img src="data:image/webp;base64,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" alt="Pix" />
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#111;">Pix</div>
+          <div style="font-size:11px;color:#6b7280;margin-top:2px;line-height:1.5;">Aprovação rápida · pague com QR Code ou copia e cola</div>
+        </div>
+      </div>
+
+      <div class="detalhes-wrap">
+        <div class="detalhes-title">Detalhes da compra</div>
+        <div class="detalhes-item">
+          <div class="detalhes-nome">Mentoria Método PHDNOSEUA – Acesso completo</div>
+          <div class="detalhes-preco">R$&nbsp;497,00</div>
+        </div>
+        <div class="detalhes-total">
+          <strong>Total</strong>
+          <span class="total-valor" id="totalValor">R$ 497,00</span>
+        </div>
+      </div>
+
+      <button class="btn-comprar" id="btnComprar" onclick="handleBuy()">Comprar agora</button>
+
+      <div class="protected-row" style="display:flex; align-items:center; justify-content:center; padding:18px 0 20px;">
+        <img src="data:image/webp;base64,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" alt="Protegido por Hotmart" style="height:42px; width:auto;" />
+      </div>
+
+    </div><!-- /card -->
+
+    <div class="declaracao-section">
+      <p class="declaracao-text" style="margin-bottom:10px;">
+        Caso precise solicitar atendimento, o código abaixo deve ser informado:
+      </p>
+      <div style="display:flex; align-items:center; gap:6px; margin-bottom:16px;">
+        <strong id="cktidValue" style="color:#d1d5db; font-size:11px; letter-spacing:.2px;"></strong>
+        <button onclick="copiarCktid()" id="btnCopiarCktid" title="Copiar código" style="background:none;border:none;cursor:pointer;padding:2px;display:flex;align-items:center;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        </button>
+      </div>
+      <p class="declaracao-text">
+        Ao clicar em 'Comprar agora', eu declaro que li e concordo (i) que a Hotmart está processando este pedido em nome de <strong>PHDNOSEUA LLC</strong> e não possui responsabilidade pelo conteúdo e/ou faz controle prévio deste; (ii) com os <span style="text-decoration:underline;color:#d1d5db;">Termos de Uso</span>, <span style="text-decoration:underline;color:#d1d5db;">Política de Privacidade</span> e <span style="text-decoration:underline;color:#d1d5db;">demais Políticas da Hotmart</span> e (iii) que sou maior de idade ou autorizado e acompanhado por um responsável legal.
+      </p>
+      <p class="declaracao-text" style="margin-top:8px;">
+        Saiba mais sobre sua compra <a href="https://wa.me/5511920096589" target="_blank" rel="noopener" style="color:#d1d5db;">aqui</a>.
+      </p>
+      <div class="copyright">
+        PHDNOSEUA LLC © 2026 - Todos os direitos reservados<br/>
+        <span id="checkoutTimestamp"></span> <a href="#" style="color:#6b7280;">REF.</a>
+      </div>
+    </div>
+
+    <div class="trust-section">
+      <div class="trust-item">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 3.5c-1.4 0-2.6.9-3 2.2-1.4-.1-2.6.9-2.9 2.3-.3 1.3.4 2.6 1.6 3.1-.5 1.3.1 2.7 1.4 3.2 1.2.5 2.6-.1 3.1-1.3"/>
+          <path d="M15 3.5c1.4 0 2.6.9 3 2.2 1.4-.1 2.6.9 2.9 2.3.3 1.3-.4 2.6-1.6 3.1.5 1.3-.1 2.7-1.4 3.2-1.2.5-2.6-.1-3.1-1.3"/>
+          <circle cx="12" cy="9.5" r="3.3"/>
+          <path d="m9.6 12-1.9 7.5 4.3-1.7 4.3 1.7L14.4 12"/>
+        </svg>
+        <div class="trust-item-texts">
+          <strong>Privacidade</strong>
+          <span>Sua informação 100% segura</span>
+        </div>
+      </div>
+      <div class="trust-item">
+        <svg width="32" height="32" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M26 2L5 11v14c0 13.25 9.02 25.63 21 29 11.98-3.37 21-15.75 21-29V11L26 2z" stroke="#000000" stroke-width="3" fill="none"/>
+          <polyline points="16,26 22,32 36,18" stroke="#000000" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="trust-item-texts">
+          <strong>Compra segura</strong>
+          <span>Ambiente seguro e autenticado</span>
+        </div>
+      </div>
+      <div class="trust-item">
+        <svg width="36" height="36" viewBox="0 0 52 36" xmlns="http://www.w3.org/2000/svg">
+          <path d="M37.99 1.092a1.417 1.417 0 00-.629-.88 1.4 1.4 0 00-1.074-.182l-5.928 1.4L26 2.822l-4.359-1.392-5.928-1.4a1.4 1.4 0 00-1.074.182 1.417 1.417 0 00-.629.88L12.59 7H6.5A6.507 6.507 0 000 13.5v16A6.507 6.507 0 006.5 36h39a6.507 6.507 0 006.5-6.5v-16A6.507 6.507 0 0045.5 7h-6.09l-1.42-5.908z" fill="#000000"/>
+          <path d="M26 22L4 10M26 22l22-12" stroke="#fff" stroke-width="2" fill="none"/>
+        </svg>
+        <div class="trust-item-texts">
+          <strong>Entregue via E-mail</strong>
+          <span>Acesso ao produto entregue por email</span>
+        </div>
+      </div>
+      <div class="trust-item">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="1,12 6,17 13,7"/>
+          <polyline points="10,12 15,17 23,7"/>
+        </svg>
+        <div class="trust-item-texts">
+          <strong>Conteúdo aprovado</strong>
+          <span>100% revisado e aprovado</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="infografico-section">
+      <img src="banner-bonus.jpg" alt="Bônus exclusivos Mentoria Método PHDNOSEUA" />
+    </div>
+
+  </div><!-- /col-checkout -->
+</div><!-- /page-wrapper -->
+
+<a href="https://wa.me/5511920096589" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Falar com o suporte no WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-1.745-.872-2.888-1.556-4.036-3.527-.305-.524.305-.487.873-1.62.099-.198.05-.371-.05-.519-.099-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.148.198 2.058 3.146 4.987 4.287 2.93 1.142 2.93.762 3.456.713.525-.05 1.758-.718 2.006-1.413.247-.694.247-1.29.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12.004 2.003c-5.514 0-9.997 4.483-9.997 9.997 0 1.762.464 3.417 1.276 4.853L2 22l5.27-1.255a9.96 9.96 0 0 0 4.734 1.205h.004c5.514 0 9.997-4.483 9.997-9.997s-4.483-9.95-10.001-9.95zm5.85 15.85a8.26 8.26 0 0 1-5.853 2.425h-.003a8.26 8.26 0 0 1-4.205-1.151l-.301-.179-3.13.745.75-3.05-.196-.314a8.26 8.26 0 0 1-1.27-4.376c0-4.566 3.715-8.281 8.286-8.281 2.213 0 4.292.864 5.857 2.43a8.207 8.207 0 0 1 2.422 5.855 8.26 8.26 0 0 1-2.357 5.896z"/>
+  </svg>
+</a>
+
+<div id="pixModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:28px 24px;max-width:340px;width:90%;margin:auto;text-align:center;position:relative;max-height:90vh;overflow-y:auto;">
+    <button onclick="closeModal()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:20px;cursor:pointer;color:#888;">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+  const PRODUTO_VALOR   = 497.00;
+  const PRODUTO_NOME    = 'Mentoria Método PHDNOSEUA';
+  const WHATSAPP_NUM    = '5511920096589'; // TODO: confirmar numero de WhatsApp da PHDNOSEUA LLC
+
+  function getValorTotal() {
+    return PRODUTO_VALOR;
+  }
+
+  document.getElementById('cpf').addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g,'').substring(0,11);
+    v = v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+    e.target.value = v;
+  });
+
+  document.getElementById('cel').addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g,'').substring(0,11);
+    v = v.replace(/^(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d)/,'$1-$2');
+    e.target.value = v;
+  });
+
+  function validarCPF(cpf) {
+    cpf = cpf.replace(/\D/g,'');
+    if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+    let soma = 0, resto;
+    for (let i=1; i<=9; i++) soma += parseInt(cpf[i-1]) * (11-i);
+    resto = (soma*10)%11;
+    if (resto===10||resto===11) resto=0;
+    if (resto!==parseInt(cpf[9])) return false;
+    soma=0;
+    for (let i=1; i<=10; i++) soma += parseInt(cpf[i-1]) * (12-i);
+    resto = (soma*10)%11;
+    if (resto===10||resto===11) resto=0;
+    return resto===parseInt(cpf[10]);
+  }
+
+  // =========================
+  // PIX VIA API DO GATEWAY (UmbrellaPag)
+  // A chave privada NAO fica aqui - ela mora como variavel de ambiente
+  // (UMBRELLAPAG_API_KEY) na Netlify Function /netlify/functions/create-pix.js.
+  // Este front-end so chama as functions /api-pix/create e /api-pix/status.
+  // =========================
+  let pollIntervalId = null;
+
+  function pararPolling() {
+    if (pollIntervalId) {
+      clearInterval(pollIntervalId);
+      pollIntervalId = null;
+    }
+  }
+
+  async function handleBuy() {
+    const nome  = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const email2= document.getElementById('email2').value.trim();
+    const cpf   = document.getElementById('cpf').value.trim();
+    const cel   = document.getElementById('cel').value.trim();
+
+    if (!nome)              return showErro('Por favor, preencha seu nome completo.');
+    if (!email || !email.includes('@')) return showErro('Por favor, informe um email valido.');
+    if (email !== email2)   return showErro('Os emails nao coincidem.');
+    if (!validarCPF(cpf))   return showErro('CPF invalido. Verifique e tente novamente.');
+    if (cel.replace(/\D/g,'').length < 10) return showErro('Celular invalido.');
+
+    showModal(`
+      <div style="padding:20px 0;">
+        <div style="font-size:32px;margin-bottom:12px;">⏳</div>
+        <div style="font-size:15px;font-weight:700;color:#111;margin-bottom:6px;">Gerando seu PIX...</div>
+        <div style="font-size:13px;color:#888;">Aguarde um instante</div>
+      </div>
+    `);
+
+    try {
+      const resp = await fetch('/.netlify/functions/create-pix', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nome,
+          email,
+          cpf,
+          celular: cel,
+          valor: getValorTotal(),
+          produtoNome: PRODUTO_NOME,
+        }),
+      });
+
+      const data = await resp.json();
+
+      if (!resp.ok || !data.qrCode) {
+        throw new Error(data.error || 'Nao foi possivel gerar o Pix. Tente novamente.');
+      }
+
+      showPixQR(data.qrCode, email, nome, data.id);
+    } catch (err) {
+      showModal(`
+        <div style="padding:20px 0;">
+          <div style="font-size:32px;margin-bottom:12px;">❌</div>
+          <div style="font-size:15px;font-weight:700;color:#e05252;margin-bottom:8px;">Erro ao gerar Pix</div>
+          <div style="font-size:13px;color:#666;margin-bottom:16px;">${err.message}</div>
+          <button onclick="closeModal()" style="background:#000000;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:14px;cursor:pointer;">Tentar novamente</button>
+        </div>
+      `);
+    }
+  }
+
+  function showPixQR(payload, email, nome, transactionId) {
+    const itensTexto = PRODUTO_NOME;
+
+    const linkWhats = 'https://wa.me/' + WHATSAPP_NUM + '?text=' + encodeURIComponent(
+      'Ola! Acabei de pagar o Pix do ' + itensTexto + '.\nNome: ' + nome + '\nEmail: ' + email
+    );
+
+    showModal(`
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#111;margin-bottom:4px;">Pague com PIX</div>
+        <div style="font-size:12px;color:#888;margin-bottom:14px;">Escaneie o QR Code ou copie o codigo</div>
+        <div id="qrcode" style="display:flex;justify-content:center;margin-bottom:14px;"></div>
+        <div style="background:#f0f0f0;border:1.5px solid #000000;border-radius:10px;padding:12px 14px;margin-bottom:12px;">
+          <div style="font-size:10px;font-weight:700;color:#000000;margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase;">Codigo Pix Copia e Cola</div>
+          <div id="pixCode" style="font-size:9px;color:#333;word-break:break-all;line-height:1.6;font-family:monospace;background:#fff;border-radius:6px;padding:8px;border:1px solid #ddd;">${payload}</div>
+          <div style="margin-top:8px;font-size:9.5px;color:#666;">
+            <b>Beneficiario:</b> PHDNOSEUA LLC<br/>
+            <b>Valor:</b> R$ ${getValorTotal().toFixed(2).replace('.', ',')}
+          </div>
+        </div>
+        <button id="btnCopiarPix" onclick="copiarPix('${payload.replace(/'/g,"\\'")}' )" style="width:100%;background:#32bcad;color:#fff;border:none;border-radius:8px;padding:13px;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:10px;">📋 Copiar codigo PIX</button>
+        <a href="${linkWhats}" target="_blank" rel="noopener" style="display:block;width:100%;background:#25D366;color:#fff;border:none;border-radius:8px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;box-sizing:border-box;">✅ Ja paguei, confirmar no WhatsApp</a>
+        <div id="statusPagamento" style="font-size:11px;color:#aaa;margin-top:10px;">O acesso sera enviado para:<br><strong style="color:#555;">${email}</strong><br/>apos a confirmacao do pagamento.</div>
+      </div>
+    `);
+
+    setTimeout(() => {
+      const qrEl = document.getElementById('qrcode');
+      if (!qrEl) return;
+
+      if (typeof QRCode !== 'undefined') {
+        qrEl.innerHTML = '';
+        new QRCode(qrEl, {
+          text: payload,
+          width: 200,
+          height: 200,
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      } else {
+        qrEl.innerHTML = '<div style="font-size:11px;color:#e05252;line-height:1.5;">QR Code nao carregou. Use o codigo copia e cola abaixo.</div>';
+      }
+    }, 100);
+
+    // Consulta o status do pagamento a cada 5s, ate confirmar ou o modal fechar
+    if (transactionId) {
+      pararPolling();
+      pollIntervalId = setInterval(async () => {
+        try {
+          const r = await fetch('/.netlify/functions/check-status?id=' + encodeURIComponent(transactionId));
+          const d = await r.json();
+          if (d.status === 'PAID' || d.status === 'PAGO') {
+            pararPolling();
+            const statusEl = document.getElementById('statusPagamento');
+            if (statusEl) {
+              statusEl.innerHTML = '<strong style="color:#27ae60;">✅ Pagamento confirmado! Voce recebera o acesso em instantes por email.</strong>';
+            }
+          }
+        } catch (e) {
+          // silencioso - continua tentando no proximo intervalo
+        }
+      }, 5000);
+    }
+  }
+
+
+  function copiarPix(texto) {
+    var btn = document.getElementById('btnCopiarPix');
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(texto).then(function() {
+        if (btn) { btn.textContent = '✅ Copiado!'; setTimeout(function(){ btn.textContent = '📋 Copiar codigo PIX'; }, 2500); }
+      }).catch(function() { _copiarFallback(texto, btn); });
+    } else { _copiarFallback(texto, btn); }
+  }
+
+  function _copiarFallback(texto, btn) {
+    var el = document.createElement('textarea');
+    el.value = texto; el.style.position = 'fixed'; el.style.left = '-9999px';
+    document.body.appendChild(el); el.focus(); el.select();
+    document.execCommand('copy'); document.body.removeChild(el);
+    if (btn) { btn.textContent = '✅ Copiado!'; setTimeout(function(){ btn.textContent = '📋 Copiar codigo PIX'; }, 2500); }
+  }
+
+  function showModal(html) {
+    document.getElementById('modalContent').innerHTML = html;
+    document.getElementById('pixModal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    pararPolling();
+    document.getElementById('pixModal').style.display = 'none';
+  }
+
+  function showErro(msg) {
+    showModal(`<div style="padding:20px 0;"><div style="font-size:32px;margin-bottom:12px;">⚠️</div><div style="font-size:14px;font-weight:700;color:#e05252;margin-bottom:10px;">${msg}</div><button onclick="closeModal()" style="background:#000000;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:14px;cursor:pointer;">OK</button></div>`);
+  }
+
+  // =========================
+  // RODAPE: CKTID + TIMESTAMP
+  // =========================
+  function gerarCktid() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let parte1 = '';
+    for (let i = 0; i < 7; i++) parte1 += Math.floor(Math.random() * 10);
+    let parte2 = '';
+    for (let i = 0; i < 8; i++) parte2 += chars[Math.floor(Math.random() * chars.length)];
+    const parte3 = Date.now();
+    const parte4 = Math.floor(1000 + Math.random() * 9000);
+    return `CKTID-X${parte1}${parte2}-${parte3}-${parte4}`;
+  }
+
+  function copiarCktid() {
+    const texto = document.getElementById('cktidValue').textContent;
+    const btn = document.getElementById('btnCopiarCktid');
+    const doCopyFeedback = () => {
+      if (btn) {
+        const original = btn.innerHTML;
+        btn.innerHTML = '✅';
+        setTimeout(() => { btn.innerHTML = original; }, 2000);
+      }
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(texto).then(doCopyFeedback).catch(doCopyFeedback);
+    } else {
+      const el = document.createElement('textarea');
+      el.value = texto; el.style.position = 'fixed'; el.style.left = '-9999px';
+      document.body.appendChild(el); el.focus(); el.select();
+      document.execCommand('copy'); document.body.removeChild(el);
+      doCopyFeedback();
+    }
+  }
+
+  document.getElementById('cktidValue').textContent = gerarCktid();
+
+  const dataCheckout = new Date();
+  dataCheckout.setDate(dataCheckout.getDate() + 1);
+  dataCheckout.setHours(6, 0, 0, 0);
+  const pad = (n) => String(n).padStart(2, '0');
+  const timestampFormatado = `${dataCheckout.getFullYear()}-${pad(dataCheckout.getMonth()+1)}-${pad(dataCheckout.getDate())}T06:00:00.000Z`;
+  document.getElementById('checkoutTimestamp').textContent = timestampFormatado;
+</script>
+</body>
+</html>
