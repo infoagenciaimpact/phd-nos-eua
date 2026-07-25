@@ -507,7 +507,14 @@
           cpf,
           celular: cel,
           valor: getValorTotal(),
-          produtoNome: PRODUTO_NOME + (bumpAtivo() ? ' + ' + BUMP_NOME : ''),
+          itens: bumpAtivo()
+            ? [
+                { nome: PRODUTO_NOME, valor: PRODUTO_VALOR },
+                { nome: BUMP_NOME, valor: BUMP_VALOR },
+              ]
+            : [
+                { nome: PRODUTO_NOME, valor: PRODUTO_VALOR },
+              ],
         }),
       });
 
