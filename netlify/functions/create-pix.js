@@ -23,7 +23,7 @@ exports.handler = async function (event) {
     return { statusCode: 400, body: JSON.stringify({ error: 'JSON invalido no corpo da requisicao.' }) };
   }
 
-  const { nome, email, cpf, celular, valor, produtoNome, postbackUrl } = payload;
+  const { nome, email, cpf, celular, valor, itens, postbackUrl } = payload;
 
   if (!nome || !email || !cpf || !valor) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Dados obrigatorios faltando (nome, email, cpf, valor).' }) };
@@ -38,10 +38,29 @@ exports.handler = async function (event) {
   const cpfLimpo = String(cpf).replace(/\D/g, '');
   const docType = cpfLimpo.length > 11 ? 'CNPJ' : 'CPF';
 
+  // A UmbrellaPag lista "ip" como campo obrigatorio do corpo da requisicao.
+  const clientIp =
+    (event.headers['x-nf-client-connection-ip']) ||
+    (event.headers['x-forwarded-for'] && event.headers['x-forwarded-for'].split(',')[0].trim()) ||
+    '127.0.0.1';
+
+  // items[] estruturado: um item por produto (principal + order bump, se houver),
+  // em vez de concatenar tudo num titulo unico. O somatorio de unitPrice*quantity
+  // deve bater com o amount total enviado.
+  const itemsArray = Array.isArray(itens) && itens.length > 0
+    ? itens.map((it) => ({
+        title: it.nome || 'Item',
+        unitPrice: Math.round(Number(it.valor) * 100),
+        quantity: 1,
+        tangible: false,
+      }))
+    : [{ title: 'Mentoria Metodo PHDNOSEUA', unitPrice: amountCents, quantity: 1, tangible: false }];
+
   const body = {
     amount: amountCents,
     currency: 'BRL',
     paymentMethod: 'PIX',
+    ip: clientIp,
     customer: {
       name: nome,
       email: email,
@@ -51,14 +70,7 @@ exports.handler = async function (event) {
       },
       phone: celular ? String(celular).replace(/\D/g, '') : undefined,
     },
-    items: [
-      {
-        title: produtoNome || 'Mentoria Metodo PHDNOSEUA',
-        unitPrice: amountCents,
-        quantity: 1,
-        tangible: false,
-      },
-    ],
+    items: itemsArray,
     pix: {
       expiresInDays: 1,
     },
@@ -79,9 +91,12 @@ exports.handler = async function (event) {
 
     const data = await resp.json();
 
-    // Log completo no Netlify (aparece em Logs & metrics -> Function logs)
-    console.log('UmbrellaPag response status:', resp.status);
-    console.log('UmbrellaPag response body:', JSON.stringify(data));
+    // Log resumido (evita truncar na interface de logs da Netlify)
+    console.log('UmbrellaPag status HTTP:', resp.status);
+    console.log('UmbrellaPag message:', data.message);
+    console.log('UmbrellaPag data.status:', data.data?.status);
+    console.log('UmbrellaPag refusedReason:', data.data?.refusedReason);
+    console.log('UmbrellaPag error:', data.error);
 
     if (!resp.ok) {
       return {
