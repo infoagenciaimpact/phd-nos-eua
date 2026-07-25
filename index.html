@@ -70,6 +70,7 @@
     /* ── VÍDEO SUPERIOR ── */
     .video-topo {
       width: 100%;
+      aspect-ratio: 16 / 9;
       border-radius: 10px;
       overflow: hidden;
       margin-bottom: 12px;
@@ -77,8 +78,9 @@
     }
     .video-topo video {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
+      object-fit: cover;
     }
 
 
@@ -156,35 +158,6 @@
     }
     .pix-icon-bg img { width: 100%; height: 100%; object-fit: contain; }
 
-    /* ── ORDER BUMP ── */
-    .orderbump-wrap { margin-top: 16px; }
-    .orderbump-title { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 10px; }
-    .orderbump-card {
-      border: 1.5px solid #22c55e; border-radius: 10px; padding: 14px;
-      background: #fff;
-    }
-    .orderbump-body { display: flex; gap: 12px; align-items: flex-start; }
-    .orderbump-img {
-      width: 64px; height: 64px; border-radius: 6px; object-fit: cover;
-      flex-shrink: 0; border: 1px solid #eee;
-    }
-    .orderbump-info { flex: 1; min-width: 0; }
-    .orderbump-name { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 6px; }
-    .orderbump-desc { font-size: 12px; color: #6b7280; line-height: 1.5; margin-bottom: 6px; }
-    .orderbump-price-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
-    .orderbump-price-old { font-size: 12.5px; color: #9ca3af; text-decoration: line-through; }
-    .orderbump-badge {
-      background: #22c55e; color: #fff; font-size: 11px; font-weight: 700;
-      border-radius: 4px; padding: 2px 7px;
-    }
-    .orderbump-price-new { font-size: 17px; font-weight: 800; color: #111; margin-top: 2px; }
-    .orderbump-checkbox-row {
-      display: flex; align-items: center; gap: 8px; margin-top: 12px;
-      padding: 10px 12px; background: #ecfdf3; border-radius: 6px; cursor: pointer;
-    }
-    .orderbump-checkbox-row input { width: 18px; height: 18px; accent-color: #22c55e; cursor: pointer; }
-    .orderbump-checkbox-row span { font-size: 13.5px; color: #111; font-weight: 500; }
-
     .detalhes-wrap { margin-top: 14px; }
     .detalhes-title { font-size: 13px; font-weight: 700; color: #111; margin-bottom: 8px; }
     .detalhes-item {
@@ -217,7 +190,7 @@
     .copyright { margin-top: 12px; font-size: 10px; color: #6b7280; border-top: 1px solid #2d2d2d; padding-top: 10px; }
 
     /* ── INFOGRÁFICO / SOBRE A PLATAFORMA ── */
-    .infografico-section { width: 100%; padding: 0 0 16px; }
+    .infografico-section { width: 100%; padding: 16px 0 16px; }
     .infografico-section img { width: 100%; height: auto; display: block; border-radius: 10px; }
 
     .whatsapp-float {
@@ -246,7 +219,7 @@
 
     <!-- VÍDEO SUPERIOR -->
     <div class="video-topo">
-      <video controls playsinline preload="metadata" poster="produto-phdnoseua.png">
+      <video autoplay muted loop controls playsinline preload="auto">
         <source src="video-topo.mp4" type="video/mp4">
       </video>
     </div>
@@ -320,33 +293,11 @@
         </div>
       </div>
 
-      <div class="orderbump-wrap">
-        <div class="orderbump-title">Aproveite e compre junto:</div>
-        <div class="orderbump-card">
-          <div class="orderbump-body">
-            <img src="radar-de-bolsas.png" alt="Radar de Bolsas - Anual" class="orderbump-img" />
-            <div class="orderbump-info">
-              <div class="orderbump-name">Radar de Bolsas - Anual</div>
-              <div class="orderbump-desc">Toda semana selecionamos uma universidade nos Estados Unidos para te passar informações completas sobre bolsas de estudos. Para cada programa, seja de mestrado e/ou doutorado, que aquela universidade oferece, você terá informações sobre valores de bolsa, modalidade (TA/RA), forma de ser considerado, prazo de inscrição e muito mais.</div>
-              <div class="orderbump-price-new">R$&nbsp;97,00</div>
-            </div>
-          </div>
-          <label class="orderbump-checkbox-row">
-            <input type="checkbox" id="orderBumpCheckbox" onchange="toggleOrderBump()" />
-            <span>Adicionar produto</span>
-          </label>
-        </div>
-      </div>
-
       <div class="detalhes-wrap">
         <div class="detalhes-title">Detalhes da compra</div>
         <div class="detalhes-item">
           <div class="detalhes-nome">Mentoria Método PHDNOSEUA – Acesso completo</div>
           <div class="detalhes-preco">R$&nbsp;497,00</div>
-        </div>
-        <div class="detalhes-item" id="bumpDetalheItem" style="display:none;">
-          <div class="detalhes-nome">Radar de Bolsas - Anual</div>
-          <div class="detalhes-preco">R$&nbsp;97,00</div>
         </div>
         <div class="detalhes-total">
           <strong>Total</strong>
@@ -409,29 +360,9 @@
   const PRODUTO_VALOR   = 497.00;
   const PRODUTO_NOME    = 'Mentoria Método PHDNOSEUA';
   const WHATSAPP_NUM    = '5511920096589'; // TODO: confirmar numero de WhatsApp da PHDNOSEUA LLC
-  const BUMP_VALOR      = 97.00;
-  const BUMP_NOME       = 'Radar de Bolsas - Anual';
-
-  function bumpAtivo() {
-    const cb = document.getElementById('orderBumpCheckbox');
-    return !!(cb && cb.checked);
-  }
 
   function getValorTotal() {
-    return PRODUTO_VALOR + (bumpAtivo() ? BUMP_VALOR : 0);
-  }
-
-  function atualizarTotal() {
-    document.getElementById('totalValor').textContent =
-      'R$ ' + getValorTotal().toFixed(2).replace('.', ',');
-  }
-
-  function toggleOrderBump() {
-    const item = document.getElementById('bumpDetalheItem');
-    if (item) {
-      item.style.display = bumpAtivo() ? 'flex' : 'none';
-    }
-    atualizarTotal();
+    return PRODUTO_VALOR;
   }
 
   document.getElementById('cpf').addEventListener('input', function(e) {
@@ -507,14 +438,9 @@
           cpf,
           celular: cel,
           valor: getValorTotal(),
-          itens: bumpAtivo()
-            ? [
-                { nome: PRODUTO_NOME, valor: PRODUTO_VALOR },
-                { nome: BUMP_NOME, valor: BUMP_VALOR },
-              ]
-            : [
-                { nome: PRODUTO_NOME, valor: PRODUTO_VALOR },
-              ],
+          itens: [
+            { nome: PRODUTO_NOME, valor: PRODUTO_VALOR },
+          ],
         }),
       });
 
@@ -538,7 +464,7 @@
   }
 
   function showPixQR(payload, email, nome, transactionId) {
-    const itensTexto = PRODUTO_NOME + (bumpAtivo() ? ' + ' + BUMP_NOME : '');
+    const itensTexto = PRODUTO_NOME;
 
     const linkWhats = 'https://wa.me/' + WHATSAPP_NUM + '?text=' + encodeURIComponent(
       'Ola! Acabei de pagar o Pix do ' + itensTexto + '.\nNome: ' + nome + '\nEmail: ' + email
