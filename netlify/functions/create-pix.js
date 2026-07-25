@@ -79,10 +79,29 @@ exports.handler = async function (event) {
 
     const data = await resp.json();
 
+    // Log completo no Netlify (aparece em Logs & metrics -> Function logs)
+    console.log('UmbrellaPag response status:', resp.status);
+    console.log('UmbrellaPag response body:', JSON.stringify(data));
+
     if (!resp.ok) {
       return {
         statusCode: resp.status,
-        body: JSON.stringify({ error: data.message || 'Erro ao criar transacao Pix.', details: data }),
+        body: JSON.stringify({
+          error: data.message || data.error || 'Erro ao criar transacao Pix.',
+          details: data,
+        }),
+      };
+    }
+
+    // A UmbrellaPag pode responder com HTTP 200 mas status "REFUSED" dentro do corpo,
+    // com o motivo detalhado em refusedReason.
+    if (data.data?.status === 'REFUSED') {
+      return {
+        statusCode: 402,
+        body: JSON.stringify({
+          error: 'Transacao recusada pelo gateway: ' + (data.data.refusedReason || 'motivo nao informado.'),
+          details: data,
+        }),
       };
     }
 
